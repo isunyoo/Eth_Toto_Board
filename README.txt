@@ -10,10 +10,12 @@ truffle(development)> networks
 truffle(development)> totoSlot = await TotoSlots.deployed()
 truffle(development)> totoSlot
 truffle(development)> totoSlot.address
-truffle(development)> totoSlot.array_length()
-truffle(development)> totoSlot.array_length().then(function(length) { arrayLength = length})
+truffle(development)> totoSlot.array_getLength()
+truffle(development)> totoSlot.array_getLength().then(function(length){arrayLength = length})
 truffle(development)> arrayLength.words[0]
-truffle(development)> totoSlot.array_example()
+truffle(development)> totoSlot.array_setData()
+truffle(development)> totoSlot.array_setData([10,20,30,40,50,60])
+truffle(development)> totoSlot.array_getData()
 truffle(development)> totoSlot.array_pop()
 truffle(development)> totoSlot.array_element()
 
