@@ -29,3 +29,9 @@ while (count < int(nums)):
 print(finalSheet)
 print(len(finalSheet))
 print(finalSheet[0])
+print(len(finalSheet[0]))
+
+for totalidx in range(len(finalSheet)):
+    print(finalSheet[totalidx])
+    # for idx in range(len(finalSheet[totalidx])):
+    #     print(finalSheet[idx])
