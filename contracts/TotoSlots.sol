@@ -22,8 +22,8 @@ contract TotoSlots {
         arr_data.push([arr1, arr2, arr3, arr4, arr5, arr6]); 
     }      
 
-    // Function to get data of dynamic array 
-    function array_popData() view public returns(uint[6][] memory) {    
+    // Function to get all data of dynamic array 
+    function array_popAllData() view public returns(uint[6][] memory) {    
         return arr_data;
     }
 
@@ -33,9 +33,8 @@ contract TotoSlots {
         return x; 
     }  
 
-     // return a length 2 array stored in the dynamic dimension
-    // will throw if index > flags.length-1 (index starts at 0)
-    function getArrays(uint index) view public returns(uint[6] memory) {
+    // Return an array stored in the dynamic dimension will throw if index > flags.length-1 (index starts at 0)
+    function array_getArray(uint index) view public returns(uint[6] memory) {
         return(arr_data[index]);
     }
   

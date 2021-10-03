@@ -25,13 +25,14 @@ while (count < int(nums)):
     slot_data.sort()
     # print(data)
     finalSheet.append(slot_data)
-    
+
+# Print Output       
 print(finalSheet)
 print(len(finalSheet))
 print(finalSheet[0])
 print(len(finalSheet[0]))
 
-for totalidx in range(len(finalSheet)):
-    print(finalSheet[totalidx])
-    # for idx in range(len(finalSheet[totalidx])):
-    #     print(finalSheet[idx])
+for totalIdx in range(len(finalSheet)):
+    print(finalSheet[totalIdx])
+    for arrayIdx in range(len(finalSheet[totalIdx])):
+        print(finalSheet[totalIdx][arrayIdx])
