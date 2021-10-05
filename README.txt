@@ -2,6 +2,7 @@ Reference
 https://www.geeksforgeeks.org/solidity-arrays/
 https://ethereum.stackexchange.com/questions/11870/create-a-two-dimensional-array-in-solidity
 https://jeancvllr.medium.com/solidity-tutorial-all-about-array-efdff4613694
+https://hackernoon.com/arrays-in-solidity-b65c1326f48b
 
 $ truffle init
 $ truffle compile

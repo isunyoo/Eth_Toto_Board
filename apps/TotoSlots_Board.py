@@ -27,8 +27,8 @@ if __name__ == "__main__":
   slotslist = quickPicker.toto_quickpick_generator(slot_nums)
   print('New quickpick set to be stored in blockchains: ', slotslist)  
   # Trigger blockchain transaction to store in arrays
-  # for array in slotslist:    
-  #   array_pushTransact(array[0], array[1], array[2], array[3], array[4], array[5])  
+  for array in slotslist:    
+    array_pushTransact(array[0], array[1], array[2], array[3], array[4], array[5])  
   print('Total Array Length: {}'.format(contract.functions.array_getLength().call()))  
   print('All Array Data: {}'.format(contract.functions.array_popAllData().call()))
 
