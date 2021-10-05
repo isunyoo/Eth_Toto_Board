@@ -1,5 +1,6 @@
 import json
 from web3 import Web3
+from datetime import datetime
 import utils.Random_Generator as quickPicker
 
 ganache_url = "http://localhost:8545" 
@@ -17,8 +18,8 @@ CONTRACT_ADDRESS = info_json["networks"]["4447"]["address"]
 contract = web3.eth.contract(address=CONTRACT_ADDRESS, abi=ABI, bytecode=BYTECODE)
 
 # Function to contract data in dynamic array 
-def array_pushTransact(num1, num2, num3, num4, num5, num6):  
-  tx_hash = contract.functions.array_pushData(num1, num2, num3, num4, num5, num6).transact()
+def array_pushTransact(count, num0, num1, num2, num3, num4, num5):  
+  tx_hash = contract.functions.array_pushData(count, num0, num1, num2, num3, num4, num5).transact()
   web3.eth.waitForTransactionReceipt(tx_hash)
 
 if __name__ == "__main__":
@@ -28,10 +29,15 @@ if __name__ == "__main__":
   print('New quickpick set to be stored in blockchains: ', slotslist)  
   # Trigger blockchain transaction to store in arrays
   for array in slotslist:    
-    array_pushTransact(array[0], array[1], array[2], array[3], array[4], array[5])  
+    array_pushTransact(int(slot_nums), array[0], array[1], array[2], array[3], array[4], array[5])  
   print('Total Array Length: {}'.format(contract.functions.array_getLength().call()))  
   print('All Array Data: {}'.format(contract.functions.array_popAllData().call()))
 
   # Input Array Number to retrieve
   array_num = input("Which Array Number to retrieve (Starting from 0): ")      
   print(f'Array Data[{array_num}]: ''{}'.format(contract.functions.array_getArray(int(array_num)).call()))
+  # Miscellany
+  timestamp = int(format(contract.functions.time_Call().call()))
+  print('Current Time(UTC):',datetime.utcfromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S'))
+  print('Current Block Number: {}'.format(contract.functions.block_Call().call()))
+
