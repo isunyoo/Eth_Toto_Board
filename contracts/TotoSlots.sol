@@ -9,8 +9,8 @@ contract TotoSlots {
     uint[6][] private arr_data;    
       
     // Function to add data in dynamic array 
-    function array_pushData(uint arr1, uint arr2, uint arr3, uint arr4, uint arr5, uint arr6) public {                        
-        arr_data.push([arr1, arr2, arr3, arr4, arr5, arr6]); 
+    function array_pushData(uint arr1, uint arr2, uint arr3, uint arr4, uint arr5, uint arr6) public { 
+        arr_data.push([arr1, arr2, arr3, arr4, arr5, arr6]);                 
     }      
 
     // Function to get all data of dynamic array 
