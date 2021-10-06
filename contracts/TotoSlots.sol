@@ -13,11 +13,12 @@ contract TotoSlots {
         // Single Array to store all sub-arrays
         // arr_data = new uint[6][];
         // arr_data.push([arr0, arr1, arr2, arr3, arr4, arr5]);        
-        uint idx;
+        
+        // Dynamic array outright with its elements are arrays of fixed size
         arr_data = new uint[6][](count);
-        for(idx=0; idx<count; idx++) {                    
-            arr_data[idx] = [arr0, arr1, arr2, arr3, arr4, arr5];             
-        }
+        for(uint idx=0; idx<count; idx++) {                    
+            arr_data[idx] = [arr0, arr1, arr2, arr3, arr4, arr5];                    
+        }        
     }      
 
     // Function to get all data of dynamic array 

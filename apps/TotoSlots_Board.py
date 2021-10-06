@@ -6,6 +6,7 @@ import utils.Ether_Transaction_Query as etherQuery
 
 ganache_url = "http://localhost:8545" 
 web3 = Web3(Web3.HTTPProvider(ganache_url))
+web3.eth.defaultAccount = web3.eth.accounts[0]    
 
 # Opening JSON file and returns JSON object as a dictionary
 with open('../build/contracts/TotoSlots.json') as f:  
@@ -50,30 +51,29 @@ def txResultHistoryData(query_filename, start_block, end_block, principal_addres
     return _local_listLength, _local_From, _local_To, _local_Nonce, _local_BlockNumber, _local_Hash, _local_BlockHash
 
 # Function to trigger txResultHistoryData historical data results
-def queryPrincipalInput(fromBlkNum):    
-  web3.eth.defaultAccount = web3.eth.accounts[0]    
+def queryPrincipalInput(fromBlkNum):      
   start_block = int(fromBlkNum)
   end_block = int(format(contract.functions.block_Call().call()))
   listLength, From, To, Nonce, BlockNumber, Hash, BlockHash = txResultHistoryData(web3.eth.defaultAccount, start_block, end_block, web3.eth.defaultAccount)  
   for idx in range(listLength):
-    print('From: ',From[idx])
-    print('To: ',To[idx])
-    print('Nounce: ',Nonce[idx])
-    print('BlockNumber: ',BlockNumber[idx])
-    print('Hash: ',Hash[idx])
-    print('BlockHash: ',BlockHash[idx])
+    print('From: ', From[idx])
+    print('To: ', To[idx])
+    print('Nounce: ', Nonce[idx])
+    print('BlockNumber: ', BlockNumber[idx])
+    print('Hash: ', Hash[idx])
+    print('BlockHash: ', BlockHash[idx])
     print('\n')  
 
 # Defining the main function
 if __name__ == "__main__":
   # Input Number of Set
   slot_nums = input("How many set to generate: ")  
-  slotslist = quickPicker.toto_quickpick_generator(slot_nums)
-  print('New quickpick set to be stored in blockchains: ', slotslist)
+  slotsList = quickPicker.toto_quickpick_generator(slot_nums)
+  print('New quickpick set to be stored in blockchains: ', slotsList)
 
   # Trigger blockchain transaction to store in arrays
-  for array in slotslist:            
-    array_pushTransact(int(slot_nums), array[0], array[1], array[2], array[3], array[4], array[5])  
+  for array in slotsList: 
+    array_pushTransact(int(slot_nums), array[0], array[1], array[2], array[3], array[4], array[5])    
   print('Total Array Length: {}'.format(contract.functions.array_getLength().call()))  
   print('All Array Data: {}'.format(contract.functions.array_popAllData().call()))  
 
@@ -86,5 +86,6 @@ if __name__ == "__main__":
   print('Current Time(UTC):',datetime.utcfromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S'))
   print('Current Block Number: {}'.format(contract.functions.block_Call().call()))
 
+  # Query BlockChain History Transactional Records
   fromBlkNum = input("From Which Block Number to retrieve records: ")     
   queryPrincipalInput(fromBlkNum)
