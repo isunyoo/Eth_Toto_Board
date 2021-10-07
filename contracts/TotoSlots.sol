@@ -3,12 +3,19 @@
 pragma solidity >0.5.0;
   
 // Creating a contract 
-contract TotoSlots {  
-  
+contract TotoSlots {    
     // Declaring state variables of type array
     uint[6][] private slotListNumbers;
     uint[6][] private arr_data;    
-      
+
+    // constructor(uint[6][] memory _slotListNumbers, uint[6][] memory _arr_data) public {
+    //     // Initialize Arrays
+    //     slotListNumbers = _slotListNumbers;
+    //     delete slotListNumbers;
+    //     arr_data = _arr_data;
+    //     delete arr_data;
+    // }
+
     // Function to add data in dynamic array 
     // function array_pushData(uint count, uint arr0, uint arr1, uint arr2, uint arr3, uint arr4, uint arr5) public { 
     //     // Single Array to store all sub-arrays
@@ -22,7 +29,7 @@ contract TotoSlots {
     //     }                
     // } 
     // function array_pushData(uint[] memory slotListNumbers) public { 
-    function array_pushData(uint arr0, uint arr1, uint arr2, uint arr3, uint arr4, uint arr5) public { 
+    function array_pushData(uint arr0, uint arr1, uint arr2, uint arr3, uint arr4, uint arr5) public returns(uint[6][] memory values) {         
         // Single Array to store all sub-arrays
         // slotListNumbers = new uint[6][];
         slotListNumbers.push([arr0, arr1, arr2, arr3, arr4, arr5]);                
@@ -32,7 +39,8 @@ contract TotoSlots {
         arr_data = new uint[6][](count);        
         for(uint idx=0; idx<count; idx++) { 
             arr_data[idx] = slotListNumbers[idx];           
-        }                
+        }                              
+        return arr_data;
     }          
 
     // Function to get all data of dynamic array 
