@@ -19,11 +19,6 @@ CONTRACT_ADDRESS = info_json["networks"]["4447"]["address"]
 contract = web3.eth.contract(address=CONTRACT_ADDRESS, abi=ABI, bytecode=BYTECODE)
 
 # Function to contract data in dynamic array 
-# def array_pushTransact(count, num0, num1, num2, num3, num4, num5):  
-# def array_pushTransact(num0, num1, num2, num3, num4, num5):  
-  # tx_hash = contract.functions.array_pushData(num0, num1, num2, num3, num4, num5).transact()
-  # tx_hash = contract.functions.array_pushData(count, num0, num1, num2, num3, num4, num5).transact()
-  # web3.eth.waitForTransactionReceipt(tx_hash)
 def array_pushTransact(slotsListNums):  
   tx_hash = contract.functions.array_pushData(slotsListNums).transact()
   web3.eth.waitForTransactionReceipt(tx_hash)
@@ -75,10 +70,7 @@ if __name__ == "__main__":
   slot_nums = input("How many set to generate: ")  
   slotsList = quickPicker.toto_quickpick_generator(slot_nums)
   print('New quickpick set to be stored in blockchains: ', slotsList)
-  # Trigger blockchain transaction to store in arrays
-  # for array in slotsList:         
-    # array_pushTransact(int(slot_nums), array[0], array[1], array[2], array[3], array[4], array[5]) 
-    # array_pushTransact(array[0], array[1], array[2], array[3], array[4], array[5]) 
+  # Trigger blockchain transaction to store in arrays  
   array_pushTransact(slotsList)
   print('Total Array Length: {}'.format(contract.functions.array_getLength().call()))  
   print('All Array Data: {}'.format(contract.functions.array_popAllData().call()))  
@@ -87,7 +79,7 @@ if __name__ == "__main__":
   array_num = input("Which Array Number to retrieve (Starting from 0): ")      
   print(f'Array Data[{array_num}]: ''{}'.format(contract.functions.array_getArray(int(array_num)).call()))
 
-  # Miscellany
+  # Miscellaneous
   timestamp = int(format(contract.functions.time_Call().call()))
   print('Current Time(UTC):',datetime.utcfromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S'))
   print('Current Block Number: {}'.format(contract.functions.block_Call().call()))

@@ -4,49 +4,16 @@ pragma solidity >0.5.0;
   
 // Creating a contract 
 contract TotoSlots {    
-    // Declaring state variables of type array
-    // uint[6][] private slotListNumbers;
-    uint[6][] private arr_data;    
+    // Declaring state variables of type array    
+    uint[6][] private arr_data;            
 
-    // constructor(uint[6][] memory _slotListNumbers, uint[6][] memory _arr_data) public {
-    //     // Initialize Arrays
-    //     slotListNumbers = _slotListNumbers;
-    //     delete slotListNumbers;
-    //     arr_data = _arr_data;
-    //     delete arr_data;
-    // }
-
-    // Function to add data in dynamic array 
-    // function array_pushData(uint count, uint arr0, uint arr1, uint arr2, uint arr3, uint arr4, uint arr5) public { 
-    //     // Single Array to store all sub-arrays
-    //     // arr_data = new uint[6][];
-    //     // arr_data.push([arr0, arr1, arr2, arr3, arr4, arr5]);        
-        
-    //     // Dynamic array outright with its elements are arrays of fixed size                
-    //     arr_data = new uint[6][](count);        
-    //     for(uint idx=0; idx<count; idx++) {                                
-    //         arr_data[idx] = [arr0, arr1, arr2, arr3, arr4, arr5];             
-    //     }                        
-    // } 
-
-    function array_pushData(uint[] memory slotListNumbers) public { 
-    // function array_pushData(uint arr0, uint arr1, uint arr2, uint arr3, uint arr4, uint arr5) public returns(uint[6][] memory values) {
-        // Single Array to store all sub-arrays
-        // slotListNumbers = new uint[6][];
-        // slotListNumbers.push([arr0, arr1, arr2, arr3, arr4, arr5]);                
-        
+    function array_pushData(uint[6][] memory slotListNumbers) public { 
         // Dynamic array outright with its elements are arrays of fixed size
-        // uint count = slotListNumbers.length;
-        // arr_data = new uint[6][](count);        
-        // for(uint idx=0; idx<count; idx++) { 
-        //     arr_data[idx] = slotListNumbers[idx];           
-        // }                            
-        // arr_data = new uint[6][];
         uint count = slotListNumbers.length;
+        arr_data = new uint[6][](count);        
         for(uint idx=0; idx<count; idx++) { 
-            arr_data[idx] = slotListNumbers[idx];        
-        }
-        delete arr_data;          
+            arr_data[idx] = slotListNumbers[idx];           
+        }                                            
     }          
 
     // Function to get all data of dynamic array 
