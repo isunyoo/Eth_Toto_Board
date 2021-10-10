@@ -37,7 +37,6 @@ def txResultHistoryData(query_filename, start_block, end_block, principal_addres
     # Reading from JSON file   
     with open(etherQuery.queryEther(query_filename, start_block, end_block, principal_address), 'r') as dataContent:        
             loaded_json = json.load(dataContent)    
-
             for idx, key in enumerate(loaded_json):                
                 _local_From.insert(idx, loaded_json[idx]['from']) 
                 _local_To.insert(idx, loaded_json[idx]['to'])                
@@ -47,7 +46,6 @@ def txResultHistoryData(query_filename, start_block, end_block, principal_addres
                 _local_BlockHash.insert(idx, loaded_json[idx]['blockHash'])               
             _local_listLength = len(_local_From)
     dataContent.close()
-
     return _local_listLength, _local_From, _local_To, _local_Nonce, _local_BlockNumber, _local_Hash, _local_BlockHash
 
 # Function to trigger txResultHistoryData historical data results

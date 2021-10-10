@@ -7,6 +7,7 @@ contract TotoSlots {
     // Declaring state variables of type array    
     uint[6][] private arr_data;            
 
+    // Function to store all data in dynamic array 
     function array_pushData(uint[6][] memory slotListNumbers) public { 
         // Dynamic array outright with its elements are arrays of fixed size
         uint count = slotListNumbers.length;
