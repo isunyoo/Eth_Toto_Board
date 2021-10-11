@@ -69,7 +69,7 @@ if __name__ == "__main__":
   slotsList = quickPicker.toto_quickpick_generator(slot_nums)
   print('New quickpick set to be stored in blockchains: ', slotsList)
   # Trigger blockchain transaction to store in arrays  
-  array_pushTransact(slotsList)
+  # array_pushTransact(slotsList)
   print('Total Array Length: {}'.format(contract.functions.array_getLength().call()))  
   print('All Array Data: {}'.format(contract.functions.array_popAllData().call()))  
 
@@ -83,5 +83,19 @@ if __name__ == "__main__":
   print('Current Block Number: {}'.format(contract.functions.block_Call().call()))
 
   # Query BlockChain History Transactional Records
-  fromBlkNum = input("From Which Block Number to retrieve records: ")     
-  queryPrincipalInput(fromBlkNum)
+  # fromBlkNum = input("From Which Block Number to retrieve records: ")     
+  # queryPrincipalInput(fromBlkNum)
+
+  # Input JackPot Number Elements to search results as input
+  jackpot_nums = int(input("Input JackPot 6 Numbers to search results: "))
+  # creating an empty list
+  jackpotList = [6]
+  # iterating till the range
+  for idx in range(0, jackpot_nums):
+    element = int(input())
+    jackpotList.append(element) # adding the element
+  print(jackpotList)
+
+
+
+ 

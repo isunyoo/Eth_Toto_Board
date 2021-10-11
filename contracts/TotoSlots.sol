@@ -32,6 +32,20 @@ contract TotoSlots {
     function array_getArray(uint index) view public returns(uint[6] memory) {
         return(arr_data[index]);
     }   
+
+    // Function to search elements in dynamic array     
+    function search_jackPot(uint[6] memory slotNums) view public returns(uint matchedNum) {
+        uint idx;        
+        for(idx=0; idx<arr_data.length; idx++) {
+            if(arr_data[6][idx] == slotNums[idx]) {
+                matchedNum++;
+                return matchedNum;
+            }            
+        }        
+        if(idx >= arr_data.length)
+        matchedNum = 0;
+        return matchedNum;
+    } 
      
     // Current block timestamp is returned by now (http://www.unixtimestamp.com/)
     function time_Call() view public returns(uint256) {        
