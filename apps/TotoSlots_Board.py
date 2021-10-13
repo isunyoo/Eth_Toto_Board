@@ -62,6 +62,13 @@ def queryPrincipalInput(fromBlkNum):
     print('BlockHash: ', BlockHash[idx])
     print('\n')  
 
+# Function to call search jackpot elements in dynamic array 
+def array_searchJackPot(jackPotNums):  
+  jackPotCounts = contract.functions.search_jackPot(jackPotNums).call()
+  print("\nMatched JackPot Counts: ", jackPotCounts)
+  return jackPotCounts
+  
+
 # Defining the main function
 if __name__ == "__main__":
   # Input Number of Set
@@ -86,15 +93,17 @@ if __name__ == "__main__":
   # fromBlkNum = input("From Which Block Number to retrieve records: ")     
   # queryPrincipalInput(fromBlkNum)
 
-  # Input JackPot Number Elements to search results as input
-  jackpot_nums = int(input("Input JackPot 6 Numbers to search results: "))
+  # Input JackPot Number Elements to search results as input  
+  print('Input JackPot 6 Numbers to search results: ')
   # creating an empty list
-  jackpotList = [6]
+  jackpotList = []
   # iterating till the range
-  for idx in range(0, jackpot_nums):
+  for idx in range(0, 6):
     element = int(input())
     jackpotList.append(element) # adding the element
-  print(jackpotList)
+  jackpotList.sort()
+  print('JackPot 6 Numbers: ', jackpotList)
+  array_searchJackPot(jackpotList)
 
 
 
