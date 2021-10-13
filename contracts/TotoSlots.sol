@@ -34,7 +34,7 @@ contract TotoSlots {
     }   
 
     // Function to search elements in dynamic array     
-    function search_jackPot(uint[6] memory slotNums) view public returns(uint matchedNum) {
+    function search_jackPot(uint[] memory slotNums) view public returns(uint matchedNum) {
         uint idx;        
         for(idx=0; idx<arr_data.length; idx++) {
             if(arr_data[6][idx] == slotNums[idx]) {

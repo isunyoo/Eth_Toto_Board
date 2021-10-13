@@ -63,7 +63,7 @@ def queryPrincipalInput(fromBlkNum):
     print('\n')  
 
 # Function to call search jackpot elements in dynamic array 
-def array_searchJackPot(jackPotNums):  
+def array_searchJackPot(jackPotNums):   
   jackPotCounts = contract.functions.search_jackPot(jackPotNums).call()
   print("\nMatched JackPot Counts: ", jackPotCounts)
   return jackPotCounts
@@ -97,13 +97,21 @@ if __name__ == "__main__":
   print('Input JackPot 6 Numbers to search results: ')
   # creating an empty list
   jackpotList = []
-  # iterating till the range
-  for idx in range(0, 6):
+  # Iterating till the range
+  index = 0  
+  while True:
     element = int(input())
-    jackpotList.append(element) # adding the element
+    if(element==0 or element>46):
+      print('JackPot Numbers must between 1 and 45')
+    elif(element==jackpotList[index]):
+      print('JackPot Number already existed and duplicated.')
+    else:
+      jackpotList.append(element) # adding the element    
+      index+=1
+      if(index==6): break    
   jackpotList.sort()
   print('JackPot 6 Numbers: ', jackpotList)
-  array_searchJackPot(jackpotList)
+  # print(array_searchJackPot(jackpotList))
 
 
 
