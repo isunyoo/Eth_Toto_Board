@@ -100,19 +100,19 @@ if __name__ == "__main__":
   # Iterating till the range
   index = 0  
   while True:
-    element = int(input())
-    if(element==0 or element>46):
-      print('JackPot Numbers must between 1 and 45')
-    elif(element==jackpotList[index]):
-      print('JackPot Number already existed and duplicated.')
-    else:
-      jackpotList.append(element) # adding the element    
+    inputNums = int(input(f"Please input a JackPot Number{[index+1]}: "))
+    if(inputNums==0 or inputNums>45):
+      print('JackPot Numbers must between 1 and 45')    
+    elif(inputNums not in jackpotList):
+      jackpotList.append(inputNums) # adding the element    
       index+=1
-      if(index==6): break    
+      if(index==6): break
+    else:             
+       jackpotList.sort()
+       print(f'{inputNums} already existed and duplicated, and JackPot Number list is {jackpotList}')
   jackpotList.sort()
   print('JackPot 6 Numbers: ', jackpotList)
   # print(array_searchJackPot(jackpotList))
-
 
 
  

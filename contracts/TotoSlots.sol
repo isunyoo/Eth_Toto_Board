@@ -5,8 +5,8 @@ pragma solidity >0.5.0;
 // Creating a contract 
 contract TotoSlots {    
     // Declaring state variables of type array    
-    uint[6][] private arr_data;            
-
+    uint[6][] private arr_data;        
+    
     // Function to store all data in dynamic array 
     function array_pushData(uint[6][] memory slotListNumbers) public { 
         // Dynamic array outright with its elements are arrays of fixed size
@@ -34,10 +34,11 @@ contract TotoSlots {
     }   
 
     // Function to search elements in dynamic array     
-    function search_jackPot(uint[] memory slotNums) view public returns(uint matchedNum) {
+    function search_jackPot(uint[6] memory slotNums) view public returns(uint matchedNum) {
         uint idx;        
         for(idx=0; idx<arr_data.length; idx++) {
             if(arr_data[6][idx] == slotNums[idx]) {
+            // if(any(slotNums.count(element) > 1 for element in slotNums)) {
                 matchedNum++;
                 return matchedNum;
             }            
@@ -45,6 +46,10 @@ contract TotoSlots {
         if(idx >= arr_data.length)
         matchedNum = 0;
         return matchedNum;
+
+        // Matching elements count using list comprehension and enumerate() + len()
+        // res = len([key for key, val in enumerate(arr_data) if val in set(slotNums)]);
+        // res = len([test_list1.index(i) for i in test_list2]);
     } 
      
     // Current block timestamp is returned by now (http://www.unixtimestamp.com/)
