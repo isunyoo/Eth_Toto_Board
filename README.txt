@@ -1,5 +1,6 @@
 Reference
-https://www.geeksforgeeks.org/python-get-a-list-as-input-from-user/
+https://kalis.me/check-events-solidity-smart-contract-test-truffle/
+https://ethereum.stackexchange.com/questions/45006/solidity-checking-for-number-match
 
 $ truffle init
 $ truffle compile

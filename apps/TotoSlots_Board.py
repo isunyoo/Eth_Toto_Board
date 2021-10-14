@@ -64,9 +64,13 @@ def queryPrincipalInput(fromBlkNum):
 
 # Function to call search jackpot elements in dynamic array 
 def array_searchJackPot(jackPotNums):   
-  jackPotCounts = contract.functions.search_jackPot(jackPotNums).call()
-  print("\nMatched JackPot Counts: ", jackPotCounts)
-  return jackPotCounts
+  # jackPotCounts = contract.functions.search_jackPot(jackPotNums).call()
+  # print("\nMatched JackPot Counts: ", jackPotCounts)
+  # return jackPotCounts
+  array_data = contract.functions.array_popAllData().call()
+  print(array_data)
+  res = len([key for key, val in enumerate(array_data[6]) if val in set(jackPotNums)]);
+  print(res)
   
 
 # Defining the main function
@@ -112,7 +116,7 @@ if __name__ == "__main__":
        print(f'{inputNums} already existed and duplicated, and JackPot Number list is {jackpotList}')
   jackpotList.sort()
   print('JackPot 6 Numbers: ', jackpotList)
-  # print(array_searchJackPot(jackpotList))
+  array_searchJackPot(jackpotList)
 
 
  
