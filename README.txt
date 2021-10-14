@@ -1,6 +1,5 @@
 Reference
 https://kalis.me/check-events-solidity-smart-contract-test-truffle/
-https://ethereum.stackexchange.com/questions/45006/solidity-checking-for-number-match
 
 $ truffle init
 $ truffle compile

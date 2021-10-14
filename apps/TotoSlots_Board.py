@@ -63,15 +63,11 @@ def queryPrincipalInput(fromBlkNum):
     print('\n')  
 
 # Function to call search jackpot elements in dynamic array 
-def array_searchJackPot(jackPotNums):   
-  # jackPotCounts = contract.functions.search_jackPot(jackPotNums).call()
-  # print("\nMatched JackPot Counts: ", jackPotCounts)
-  # return jackPotCounts
-  array_data = contract.functions.array_popAllData().call()
-  print(array_data)
-  res = len([key for key, val in enumerate(array_data[6]) if val in set(jackPotNums)]);
-  print(res)
-  
+def array_searchJackPot(jackPotNums):     
+  array_data = contract.functions.array_popAllData().call()  
+  for idx in range(len(array_data)):  
+    res = len([key for key, val in enumerate(array_data[idx]) if val in set(jackPotNums)]);
+    print(f'Slot Numbers{array_data[idx]} have {res} matched with JackPot Numbers.')    
 
 # Defining the main function
 if __name__ == "__main__":
