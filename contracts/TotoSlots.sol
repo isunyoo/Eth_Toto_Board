@@ -6,7 +6,25 @@ pragma solidity >0.5.0;
 contract TotoSlots {    
     // Declaring state variables of type array    
     uint[6][] private arr_data;        
+    int[] private arr_test;    
     
+    // Function to add data in dynamic array test
+    function addData(int num) public {
+        arr_test.push(num);
+    }
+
+    // Function to search an element in dynamic array test
+    function search(int num) view public returns(bool) {
+        uint i;        
+        for(i=0; i<arr_test.length; i++) {
+            if(arr_test[i] == num) {
+                return true;
+            }
+        }        
+        if(i >= arr_test.length)
+        return false;
+    } 
+
     // Function to store all data in dynamic array 
     function array_pushData(uint[6][] memory slotListNumbers) public { 
         // Dynamic array outright with its elements are arrays of fixed size
