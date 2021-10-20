@@ -4,17 +4,17 @@ pragma solidity >0.5.0;
   
 // Creating a contract 
 contract TotoSlots {    
-    // Declaring state variables of type array    
+    // Declaring state variables of type array        
     uint[6][] private arr_data;        
-    int[] private arr_test;    
+    uint256[] private arr_test;    
     
     // Function to add data in dynamic array test
-    function addData(int num) public {
+    function addData(uint256 num) public {        
         arr_test.push(num);
     }
 
     // Function to search an element in dynamic array test
-    function search(int num) view public returns(bool) {
+    function search(uint256 num) view public returns(bool) {
         uint i;        
         for(i=0; i<arr_test.length; i++) {
             if(arr_test[i] == num) {
@@ -41,13 +41,13 @@ contract TotoSlots {
     }
 
     // Defining a function to find the length of the array
-    function array_getLength() view public returns(uint) {  
+    function array_getLength() view public returns(uint256) {  
         uint x = arr_data.length;
         return x; 
     }  
 
     // Return an array stored in the dynamic dimension will throw if index > flags.length-1 (index starts at 0)
-    function array_getArray(uint index) view public returns(uint[6] memory) {
+    function array_getArray(uint256 index) view public returns(uint[6] memory) {
         return(arr_data[index]);
     }   
      
