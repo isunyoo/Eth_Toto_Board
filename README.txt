@@ -10,6 +10,7 @@ $ truffle test
 $ truffle migrate
 $ truffle migrate --reset --compile-all --network development/ropsten
 $ truffle console --network development/ropsten
+truffle(development)> accounts
 truffle(development)> networks
 truffle(development)> totoSlot = await TotoSlots.deployed()
 truffle(development)> totoSlot
@@ -22,3 +23,6 @@ truffle(development)> totoSlot.array_popAllData()
 truffle(development)> totoSlot.array_getLength()
 truffle(development)> totoSlot.array_getArray(0)
 truffle(development)> totoSlot.search(11)
+
+$ geth account list
+$ geth account list --keystore ~/.ethereum/development/keystore/

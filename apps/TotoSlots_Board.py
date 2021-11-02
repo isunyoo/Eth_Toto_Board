@@ -4,25 +4,47 @@ from datetime import datetime
 import utils.Random_Generator as quickPicker
 import utils.Ether_Transaction_Query as etherQuery
 
+
 # Opening JSON file and returns JSON object as a dictionary
 with open('../secrets.json') as f:  
   info_json = json.load(f)
 projectId = info_json["projectId"]
+keystoreFile = info_json["keystoreFile"]
+privateKey = info_json["privateKey"]
 
-ganache_url = "http://localhost:8545" 
-ropsten_url = "https://ropsten.infura.io/v3/"+projectId
-web3 = Web3(Web3.HTTPProvider(ropsten_url))
-web3.eth.defaultAccount = web3.eth.accounts[0]    
+
+
+ganache_http = "http://localhost:8545" 
+# web3 = Web3(Web3.HTTPProvider(ganache_http))
+# web3.eth.defaultAccount = web3.eth.accounts[0]  
+# Interactions with an HTTP or HTTPS based JSON-RPC server.
+# ropsten_https = "https://ropsten.infura.io/v3/"+projectId
+# web3 = Web3(Web3.HTTPProvider(ropsten_https))
+# Interactions with an WS or WSS based JSON-RPC server.
+ropsten_wss = "wss://ropsten.infura.io/ws/v3/"+projectId
+web3 = Web3(Web3.WebsocketProvider(ropsten_wss, websocket_timeout=60))
+
+# tip: do not save the key or password anywhere, especially into a shared source file
+with open(keystoreFile) as keyfile:  
+  # encrypted_key = keyfile.read()
+  # private_key = web3.eth.account.decrypt(encrypted_key, privateKey)
+  info_json = json.load(keyfile)
+  web3.eth.defaultAccount = web3.toChecksumAddress(info_json["address"])  
+
 
 # Opening JSON file and returns JSON object as a dictionary
 with open('../build/contracts/TotoSlots.json') as f:  
   info_json = json.load(f)
 ABI = info_json["abi"]
 BYTECODE = info_json["bytecode"]
-CONTRACT_ADDRESS = info_json["networks"]["4447"]["address"]
+# Development Network
+# CONTRACT_ADDRESS = info_json["networks"]["4447"]["address"]
+# Ropsten Network
+CONTRACT_ADDRESS = info_json["networks"]["3"]["address"]
 # print("abi file: ", ABI)  
 # print("contract address: ", CONTRACT_ADDRESS)
 contract = web3.eth.contract(address=CONTRACT_ADDRESS, abi=ABI, bytecode=BYTECODE)
+
 
 # Function to contract data in dynamic array 
 def array_pushTransact(slotsListNums):  
@@ -119,6 +141,4 @@ if __name__ == "__main__":
   jackpotList.sort()
   print('JackPot 6 Numbers: ', jackpotList)
   array_searchJackPot(jackpotList)
-
-
  
