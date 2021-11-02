@@ -1,4 +1,6 @@
 .env
+.secret
+secrets.json
 static/images/*
 !static/images/.keep
 static/query/*
