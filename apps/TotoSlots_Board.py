@@ -4,8 +4,14 @@ from datetime import datetime
 import utils.Random_Generator as quickPicker
 import utils.Ether_Transaction_Query as etherQuery
 
+# Opening JSON file and returns JSON object as a dictionary
+with open('../secrets.json') as f:  
+  info_json = json.load(f)
+projectId = info_json["projectId"]
+
 ganache_url = "http://localhost:8545" 
-web3 = Web3(Web3.HTTPProvider(ganache_url))
+ropsten_url = "https://ropsten.infura.io/v3/"+projectId
+web3 = Web3(Web3.HTTPProvider(ropsten_url))
 web3.eth.defaultAccount = web3.eth.accounts[0]    
 
 # Opening JSON file and returns JSON object as a dictionary
