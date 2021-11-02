@@ -17,7 +17,7 @@ truffle(development)> totoSlot.address
 truffle(development)> totoSlot.array_getLength()
 truffle(development)> totoSlot.array_getLength().then(function(length){arrayLength = length})
 truffle(development)> arrayLength.words[0]
-truffle(development)> totoSlot.array_pushData([1,2,3,4,5,6])
+truffle(development)> totoSlot.array_pushData([[15, 17, 27, 31, 33, 41], [15, 20, 27, 36, 38, 41], [3, 9, 17, 19, 20, 26], [3, 8, 16, 21, 28, 32]]
 truffle(development)> totoSlot.array_popAllData()
 truffle(development)> totoSlot.array_getLength()
 truffle(development)> totoSlot.array_getArray(0)
