@@ -56,15 +56,15 @@ with open('../build/contracts/TotoSlots.json') as keyfile:
 
 # Function to contract data in dynamic array 
 def array_pushTransact(slotsListNums):  
-  # Development builds a transaction dictionary based on the contract function call
+  # Development builds a transaction dictionary based on the contract function call(Transaction Object)
   # tx = contract.functions.array_pushData(slotsListNums).transact()
   # web3.eth.waitForTransactionReceipt(tx)
 
-  # Ropsten builds a transaction dictionary based on the contract function call
+  # Ropsten builds a transaction dictionary based on the contract function call(Transaction Object)
   tx = contract.functions.array_pushData(slotsListNums).buildTransaction({'nonce': web3.eth.getTransactionCount(web3.eth.defaultAccount)})
   # Sign the transaction  
   signed_tx = web3.eth.account.signTransaction(tx, private_key.decode('ascii'))
-  # Send transaction
+  # Send Signed Transaction
   tx_hash = web3.eth.sendRawTransaction(signed_tx.rawTransaction)  
   tx_receipt = web3.eth.waitForTransactionReceipt(tx_hash)   
    
