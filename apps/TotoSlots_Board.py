@@ -1,4 +1,4 @@
-import json
+import json, binascii
 from web3 import Web3
 from datetime import datetime
 import utils.Random_Generator as quickPicker
@@ -6,12 +6,12 @@ import utils.Ether_Transaction_Query as etherQuery
 
 
 # Opening JSON file and returns JSON object as a dictionary
-with open('../secrets.json') as f:  
-  info_json = json.load(f)
+with open('../secrets.json') as keyfile:  
+  info_json = json.load(keyfile)
 projectId = info_json["projectId"]
 keystoreFile = info_json["keystoreFile"]
-privateKey = info_json["privateKey"]
-
+accountKey = info_json["accountKey"]
+keyfile.close
 
 
 ganache_http = "http://localhost:8545" 
@@ -30,26 +30,44 @@ with open(keystoreFile) as keyfile:
   # private_key = web3.eth.account.decrypt(encrypted_key, privateKey)
   info_json = json.load(keyfile)
   web3.eth.defaultAccount = web3.toChecksumAddress(info_json["address"])  
+  cipher = info_json["crypto"]["ciphertext"]  
+  keyfile.close  
+with open(keystoreFile) as keyfile:
+  encrypted_key = keyfile.read()
+  decrypted_key = web3.eth.account.decrypt(encrypted_key, accountKey)
+  private_key = binascii.b2a_hex(decrypted_key)  
+  keyfile.close
 
 
 # Opening JSON file and returns JSON object as a dictionary
-with open('../build/contracts/TotoSlots.json') as f:  
-  info_json = json.load(f)
-ABI = info_json["abi"]
-BYTECODE = info_json["bytecode"]
-# Development Network
-# CONTRACT_ADDRESS = info_json["networks"]["4447"]["address"]
-# Ropsten Network
-CONTRACT_ADDRESS = info_json["networks"]["3"]["address"]
-# print("abi file: ", ABI)  
-# print("contract address: ", CONTRACT_ADDRESS)
-contract = web3.eth.contract(address=CONTRACT_ADDRESS, abi=ABI, bytecode=BYTECODE)
+with open('../build/contracts/TotoSlots.json') as keyfile:  
+  info_json = json.load(keyfile)
+  ABI = info_json["abi"]
+  BYTECODE = info_json["bytecode"]
+  # Development Network
+  # CONTRACT_ADDRESS = info_json["networks"]["4447"]["address"]
+  # Ropsten Network
+  CONTRACT_ADDRESS = info_json["networks"]["3"]["address"]
+  # print("abi file: ", ABI)  
+  # print("contract address: ", CONTRACT_ADDRESS)
+  contract = web3.eth.contract(address=CONTRACT_ADDRESS, abi=ABI, bytecode=BYTECODE)
+  keyfile.close
 
 
 # Function to contract data in dynamic array 
 def array_pushTransact(slotsListNums):  
-  tx_hash = contract.functions.array_pushData(slotsListNums).transact()
-  web3.eth.waitForTransactionReceipt(tx_hash)
+  # Development builds a transaction dictionary based on the contract function call
+  # tx = contract.functions.array_pushData(slotsListNums).transact()
+  # web3.eth.waitForTransactionReceipt(tx)
+
+  # Ropsten builds a transaction dictionary based on the contract function call
+  tx = contract.functions.array_pushData(slotsListNums).buildTransaction({'nonce': web3.eth.getTransactionCount(web3.eth.defaultAccount)})
+  # Sign the transaction  
+  signed_tx = web3.eth.account.signTransaction(tx, private_key.decode('ascii'))
+  # Send transaction
+  tx_hash = web3.eth.sendRawTransaction(signed_tx.rawTransaction)  
+  tx_receipt = web3.eth.waitForTransactionReceipt(tx_hash)   
+   
 
 # Function to Retrieve Tx results historical data
 def txResultHistoryData(query_filename, start_block, end_block, principal_address):
