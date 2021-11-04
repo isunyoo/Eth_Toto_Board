@@ -13,7 +13,7 @@ contract TotoSlots {
         arr_test.push(num);
     }
 
-    // Function to search an element in dynamic array test
+    // Function to search an element in dynamic array
     function search(uint256 num) view public returns(bool) {
         uint i;        
         for(i=0; i<arr_test.length; i++) {

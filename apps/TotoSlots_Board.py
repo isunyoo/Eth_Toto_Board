@@ -66,7 +66,21 @@ def array_pushTransact(slotsListNums):
   signed_tx = web3.eth.account.signTransaction(tx, private_key.decode('ascii'))
   # Send Signed Transaction
   tx_hash = web3.eth.sendRawTransaction(signed_tx.rawTransaction)  
-  tx_receipt = web3.eth.waitForTransactionReceipt(tx_hash)   
+  tx_receipt = web3.eth.waitForTransactionReceipt(tx_hash)    
+  timestamp = int(format(contract.functions.time_Call().call()))  
+  tx_receipt_data = {}
+  tx_receipt_data['tx_receipt'] = []
+  tx_receipt_data['tx_receipt'].append({
+    'blockNumber': str(tx_receipt['blockNumber']),
+    'transactionHash': web3.toHex(tx_receipt['transactionHash']),
+    'transactionTime(UTC)': datetime.utcfromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S'),
+    'from': tx_receipt['from'],
+    'to': tx_receipt['to']
+  })
+  # Writing Signed Transaction to a JSON File
+  with open('../static/query/tx_receipts.json', 'w') as outfile:    
+    json.dump(tx_receipt_data, outfile)
+    outfile.close
    
 
 # Function to Retrieve Tx results historical data
@@ -117,8 +131,25 @@ def array_searchJackPot(jackPotNums):
 
 # Defining the main function
 if __name__ == "__main__":
+  # Currently Stored Number of Set in BlockChain
+  print('Current Stored Slot Data in BlockChain: ')
+  print('Total Array Length: {}'.format(contract.functions.array_getLength().call()))  
+  print('All Array Data: {}'.format(contract.functions.array_popAllData().call()))      
+  # Reading Signed Transaction from a JSON File
+  with open('../static/query/tx_receipts.json') as json_file:
+    tx_data = json.load(json_file)
+    for tx in tx_data['tx_receipt']:
+        print('Transacted BlockNumber: ' + tx['blockNumber'])
+        print('https://ropsten.etherscan.io/block/'+ tx['blockNumber'])
+        print('Transacted Hash: ' + tx['transactionHash'])
+        print('https://ropsten.etherscan.io/tx/' + tx['transactionHash'])
+        print('transacted Time(UTC): ' + tx['transactionTime(UTC)'])        
+        print('From: ' + tx['from'])
+        print('To: ' + tx['to'])
+        print('')
+    json_file.close
   # Input Number of Set
-  slot_nums = input("How many set to generate: ")  
+  slot_nums = input("How many new set to generate: ")  
   slotsList = quickPicker.toto_quickpick_generator(slot_nums)
   print('New quickpick set to be stored in blockchains: ', slotsList)
   # Trigger blockchain transaction to store in arrays  
