@@ -15,6 +15,7 @@ truffle(development)> networks
 truffle(development)> totoSlot = await TotoSlots.deployed()
 truffle(development)> totoSlot
 truffle(development)> totoSlot.address
+truffle(development)> totoSlot.contractArtifact.networks.[networkId].transactionHash
 truffle(development)> totoSlot.array_getLength()
 truffle(development)> totoSlot.array_getLength().then(function(length){arrayLength = length})
 truffle(development)> arrayLength.words[0]
@@ -23,6 +24,7 @@ truffle(development)> totoSlot.array_popAllData()
 truffle(development)> totoSlot.array_getLength()
 truffle(development)> totoSlot.array_getArray(0)
 truffle(development)> totoSlot.search(11)
+truffle(development)> web3.eth.getTransaction(txhash)
 
 $ geth account list
 $ geth account list --keystore ~/.ethereum/development/keystore/
