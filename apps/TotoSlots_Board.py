@@ -129,6 +129,15 @@ def array_searchJackPot(jackPotNums):
     res = len([key for key, val in enumerate(array_data[idx]) if val in set(jackPotNums)]);
     print(f'Slot Numbers{array_data[idx]} have {res} matched with JackPot Numbers.')    
 
+# Funtion to decode input data from txhash which has transacted previously
+def queryTransactedInput(txhash):  
+  tx = web3.eth.getTransaction(txhash)
+  func_obj, func_params = contract.decode_function_input(tx["input"])
+  # print(func_obj)
+  # print(type(func_obj))
+  print(func_params)
+  # print(type(func_params))
+
 # Defining the main function
 if __name__ == "__main__":
   # Currently Stored Number of Set in BlockChain
@@ -148,6 +157,11 @@ if __name__ == "__main__":
         print('To: ' + tx['to'])
         print('')
     json_file.close
+
+  # Decode transacted input data from historical txhash info
+  txhash_data = input("Input txhash to retrieve previous stored input data (ex, 0x4cef6853dd6cd2d79fb5537d0f14caca86d13bbed1d5920e6c9c550df9b2fb5b)\n : ") 
+  queryTransactedInput(txhash_data)
+
   # Input Number of Set
   slot_nums = input("How many new set to generate: ")  
   slotsList = quickPicker.toto_quickpick_generator(slot_nums)
