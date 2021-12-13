@@ -129,7 +129,7 @@ def array_searchJackPot(jackPotNums):
     res = len([key for key, val in enumerate(array_data[idx]) if val in set(jackPotNums)]);
     print(f'Slot Numbers{array_data[idx]} have {res} matched with JackPot Numbers.')    
 
-# Funtion to decode input data from txhash which has transacted previously
+# Function to decode input data from txhash which has transacted previously
 def queryTransactedInput(txhash):  
   tx = web3.eth.getTransaction(txhash)
   func_obj, func_params = contract.decode_function_input(tx["input"])
