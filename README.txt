@@ -25,7 +25,7 @@ truffle(development)> totoSlot.array_getLength()
 truffle(development)> totoSlot.array_getArray(0)
 truffle(development)> totoSlot.search(11)
 truffle(development)> web3.eth.getTransaction('txhash')
-truffle(development)> web3.eth.getTransactionReceipt(('txhash')
+truffle(development)> web3.eth.getTransactionReceipt('txhash')
 
 $ geth account list
 $ geth account list --keystore ~/.ethereum/development/keystore/

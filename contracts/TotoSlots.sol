@@ -2,13 +2,52 @@
 // SPDX-License-Identifier: MIT
 // Solidity program to create a fixed-size array 
 pragma solidity >0.5.0;
+pragma experimental ABIEncoderV2;
+import "./interfaces/TotoSlotStructLib.sol";
   
 // Creating a contract 
 contract TotoSlots {    
-    // Declaring state variables of type array        
+
+    // Declaring state variables of type array      
+    address public owner;  
     uint[6][] private arr_data;        
     uint256[] private arr_test;    
-    
+
+    constructor(
+        address _owner
+    ) public {
+        owner = _owner;
+    }
+
+    // Storage variables for Issuers(issuerAddress -> Issuer)
+    mapping(address => TotoSlotStructLib.Issuer) public issuerMap;
+
+    // Storage variables for TotoSlotsData
+    // ticketId -> TotoSlotsData
+    mapping(string => TotoSlotStructLib.TotoSlotsData) public TotoSlotsDataMap;
+
+    // ticketId -> issuerAddress 
+    mapping(string => address) public TotoSlotsDataIssuerMap;
+
+    modifier onlyOwner {
+        require(msg.sender == owner, "only Owner can invoke the function");
+        _;
+    }
+
+    function getOwner() public view returns(address){
+        return owner;
+    }
+
+    modifier isIssuerAuthorised(address issuerAddress){
+        require(issuerMap[msg.sender].issuerAddress == issuerAddress , "not Authorized to Invoke the function");
+        _;
+    }
+
+    modifier isAnIssuerOfAShow(string memory _showId){
+         require(showMap[_showId].issuer == msg.sender , "only Show Issuer can invoke the function");
+        _;
+    }
+      
     // Function to add data in dynamic array test
     function addData(uint256 num) public {        
         arr_test.push(num);
