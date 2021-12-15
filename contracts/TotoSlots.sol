@@ -40,7 +40,8 @@ contract TotoSlots {
        
     // Creating mapping    
     mapping (address => TotoSlotStructLib.TotoSlotsData) totoSlots;
-    TotoSlotStructLib.TotoSlotsData[] public slotAccts;
+    address[] public slotAccounts;
+    // TotoSlotStructLib.TotoSlotsData[] public slotAccounts;
     
     // Function adding values to the mapping
     function setTotoSlotsData(address _address, string memory _issuerEmail, uint[6][] memory _slotsData) public {        
@@ -51,14 +52,21 @@ contract TotoSlots {
         // });
  
         // // Create a request instance
-        // slotAccts.push(newSlotData);    
+        // slotAccounts.push(newSlotData);    
 
         TotoSlotStructLib.TotoSlotsData memory newSlotData = totoSlots[_address];
-        totoSlots.age = _address;
-        totoSlots.first_name = _issuerEmail;
-        totoSlots.last_name = _slotsData;
-        totoSlotsAccounts.push(_address) - 1;
-    
+        newSlotData.issuerAddress = _address;
+        newSlotData.issuerEmail = _issuerEmail;
+        newSlotData.slotsData = _slotsData;
+
+        // Create a request instance
+        slotAccounts.push(_address);
+    }
+
+    function getslotAccountsAddress() view public returns(address) {         
+        for(uint i=0; i<=slotAccounts.length; i++){            
+            return slotAccounts[i];
+        }
     }
 
     // Function to get all data of dynamic array 
