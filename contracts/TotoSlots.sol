@@ -1,4 +1,5 @@
 // https://github.com/kanthgithub/ticketbooking/tree/main/contracts
+// https://jeancvllr.medium.com/solidity-tutorial-all-about-structs-b3e7ca398b1e
 // SPDX-License-Identifier: MIT
 // Solidity program to create a fixed-size array 
 pragma solidity >0.5.0;
@@ -12,41 +13,63 @@ contract TotoSlots {
     address public owner;  
     uint[6][] private arr_data;        
     uint256[] private arr_test;    
+    
+    // // Storage variables for Issuers(issuerAddress -> Issuer)
+    // mapping(address => TotoSlotStructLib.Issuer) public issuerMap;
 
-    constructor(
-        address _owner
-    ) public {
-        owner = _owner;
+    // // Storage variables for TotoSlotsData
+    // // ticketId -> TotoSlotsData
+    // mapping(string => TotoSlotStructLib.TotoSlotsData) public TotoSlotsDataMap;
+
+    // // ticketId -> issuerAddress 
+    // mapping(string => address) public TotoSlotsDataIssuerMap;
+
+    // modifier onlyOwner {
+    //     require(msg.sender == owner, "only Owner can invoke the function");
+    //     _;
+    // }
+
+    // function getOwner() public view returns(address){
+    //     return owner;
+    // }
+
+    // modifier isIssuerAuthorised(address issuerAddress){
+    //     require(issuerMap[msg.sender].issuerAddress == issuerAddress , "not Authorized to Invoke the function");
+    //     _;
+    // }
+       
+    // Creating mapping    
+    mapping (address => TotoSlotStructLib.TotoSlotsData) totoSlots;
+    TotoSlotStructLib.TotoSlotsData[] public slotAccts;
+    
+    // Function adding values to the mapping
+    function setTotoSlotsData(address _address, string memory _issuerEmail, uint[6][] memory _slotsData) public {        
+        // TotoSlotStructLib.TotoSlotsData memory newSlotData = TotoSlotStructLib.TotoSlotsData({
+        //     issuerAddress: _address,
+        //     issuerEmail: _issuerEmail,
+        //     slotsData: _slotsData           
+        // });
+ 
+        // // Create a request instance
+        // slotAccts.push(newSlotData);    
+
+        TotoSlotStructLib.TotoSlotsData memory newSlotData = totoSlots[_address];
+        totoSlots.age = _address;
+        totoSlots.first_name = _issuerEmail;
+        totoSlots.last_name = _slotsData;
+        totoSlotsAccounts.push(_address) - 1;
+    
     }
 
-    // Storage variables for Issuers(issuerAddress -> Issuer)
-    mapping(address => TotoSlotStructLib.Issuer) public issuerMap;
-
-    // Storage variables for TotoSlotsData
-    // ticketId -> TotoSlotsData
-    mapping(string => TotoSlotStructLib.TotoSlotsData) public TotoSlotsDataMap;
-
-    // ticketId -> issuerAddress 
-    mapping(string => address) public TotoSlotsDataIssuerMap;
-
-    modifier onlyOwner {
-        require(msg.sender == owner, "only Owner can invoke the function");
-        _;
+    // Function to get all data of dynamic array 
+    function getTotoSlotsData(address _address) view public returns(address, string memory, uint[6][] memory) { 
+        address _issuerAddress = totoSlots[_address].issuerAddress;
+        string memory _issuerEmail = totoSlots[_address].issuerEmail;
+        uint[6][] memory _slotsData = totoSlots[_address].slotsData;
+        
+        return (_issuerAddress, _issuerEmail, _slotsData);
     }
 
-    function getOwner() public view returns(address){
-        return owner;
-    }
-
-    modifier isIssuerAuthorised(address issuerAddress){
-        require(issuerMap[msg.sender].issuerAddress == issuerAddress , "not Authorized to Invoke the function");
-        _;
-    }
-
-    modifier isAnIssuerOfAShow(string memory _showId){
-         require(showMap[_showId].issuer == msg.sender , "only Show Issuer can invoke the function");
-        _;
-    }
       
     // Function to add data in dynamic array test
     function addData(uint256 num) public {        

@@ -11,11 +11,12 @@ library TotoSlotStructLib {
         uint256 createdAt;        
     }
     
+    // Defining our TotoSlotData struct
     struct TotoSlotsData {        
-        address issuer;
+        // Declaring different structure elements
+        address issuerAddress;
         string issuerEmail;
-        uint[6][] slotsData;
-        uint256 createdAt;
+        uint[6][] slotsData;        
     }
 
     function isANonEmptyString(string memory stringArgument) public pure returns(bool){
