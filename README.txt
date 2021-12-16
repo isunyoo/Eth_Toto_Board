@@ -23,7 +23,8 @@ truffle(development)> totoSlot.array_getLength().then(function(length){arrayLeng
 truffle(development)> arrayLength.words[0]
 truffle(development)> totoSlot.array_pushData([[15, 17, 27, 31, 33, 41], [15, 20, 27, 36, 38, 41], [3, 9, 17, 19, 20, 26], [3, 8, 16, 21, 28, 32]])
 truffle(development)> totoSlot.setTotoSlotsData('0x8BB0412fcd5Cb1a190b38db667539cC6301890e1', 'example@test.com', [[15, 17, 27, 31, 33, 41], [3, 8, 16, 21, 28, 32]])
-truffle(development)> totoSlot.getslotAccountsAddress()
+truffle(development)> totoSlot.getSlotAccounts()
+truffle(development)> totoSlot.countSlotAccounts()
 truffle(development)> totoSlot.getTotoSlotsData('0x8BB0412fcd5Cb1a190b38db667539cC6301890e1')
 truffle(development)> totoSlot.array_popAllData()
 truffle(development)> totoSlot.array_getLength()
