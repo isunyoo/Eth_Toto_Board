@@ -1,5 +1,9 @@
 {
   "devDependencies": {
-    "@truffle/hdwallet-provider": "^1.5.1"
+    "@truffle/hdwallet-provider": "^1.5.1",
+    "webpack": "^5.65.0"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.4.1"
   }
 }

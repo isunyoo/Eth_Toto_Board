@@ -3,6 +3,8 @@ https://kalis.me/check-events-solidity-smart-contract-test-truffle/
 https://medium.com/geekculture/simple-dapp-using-flutter-and-solidity-b64f5267acf4
 
 $ npm install --save-dev @truffle/hdwallet-provider
+$ npm install --save-dev @openzeppelin/truffle-upgrades
+$ npm install --save-dev webpack
 
 $ truffle init
 $ truffle compile

@@ -5,8 +5,7 @@ pragma experimental ABIEncoderV2;
 library TotoSlotStructLib {
 
     struct Issuer {        
-        address issuerAddress;
-        string issuerEmail;
+        address issuerAddress;        
         uint256 createdAt;        
     }
     

@@ -4,6 +4,7 @@
 pragma solidity >0.5.0;
 pragma experimental ABIEncoderV2;
 import "./interfaces/TotoSlotStructLib.sol";
+
   
 // Creating a contract 
 contract TotoSlots {    
@@ -13,8 +14,8 @@ contract TotoSlots {
     uint[6][] private arr_data;        
     uint256[] private arr_test;    
     
-    // // Storage variables for Issuers(issuerAddress -> Issuer)
-    // mapping(address => TotoSlotStructLib.Issuer) public issuerMap;
+    // Storage variables for Issuers(issuerAddress -> Issuer)
+    mapping(address => TotoSlotStructLib.Issuer) public issuerMap;
 
     // // Storage variables for TotoSlotsData
     // // ticketId -> TotoSlotsData
@@ -23,19 +24,19 @@ contract TotoSlots {
     // // ticketId -> issuerAddress 
     // mapping(string => address) public TotoSlotsDataIssuerMap;
 
-    // modifier onlyOwner {
-    //     require(msg.sender == owner, "only Owner can invoke the function");
-    //     _;
-    // }
+    modifier onlyOwner {
+        require(msg.sender == owner, "only Owner can invoke the function");
+        _;
+    }
 
-    // function getOwner() public view returns(address){
-    //     return owner;
-    // }
+    function getOwner() public view returns(address){
+        return owner;
+    }
 
-    // modifier isIssuerAuthorised(address issuerAddress){
-    //     require(issuerMap[msg.sender].issuerAddress == issuerAddress , "not Authorized to Invoke the function");
-    //     _;
-    // }
+    modifier isIssuerAuthorised(address issuerAddress){
+        require(issuerMap[msg.sender].issuerAddress == issuerAddress , "not Authorized to Invoke the function");
+        _;
+    }
        
     // Creating mapping    
     mapping (address => TotoSlotStructLib.TotoSlotsData) totoSlots;
@@ -60,6 +61,16 @@ contract TotoSlots {
 
         // Create a request instance
         slotAccounts.push(_address);        
+    }
+
+    function getTotoSlotIssuerDetails(address _issuerAddress) public view returns(TotoSlotStructLib.Issuer memory issuer){
+        require(doesIssuerExist(_issuerAddress), "TotoSlotIssuer doesn't exist with this issuerAddress");
+        return issuerMap[_issuerAddress];
+    }
+
+    function doesIssuerExist(address _issuerAddress) public view returns(bool){
+        require(TotoSlotStructLib.isAValidAddress(_issuerAddress), "issuerAddress is Invalid");
+        return issuerMap[_issuerAddress].createdAt > 0;
     }
 
     function getslotAccountsAddress() view public returns(address) {         
