@@ -1,7 +1,6 @@
 // https://github.com/kanthgithub/ticketbooking/tree/main/contracts
 // https://jeancvllr.medium.com/solidity-tutorial-all-about-structs-b3e7ca398b1e
 // SPDX-License-Identifier: MIT
-// Solidity program to create a fixed-size array 
 pragma solidity >0.5.0;
 pragma experimental ABIEncoderV2;
 import "./interfaces/TotoSlotStructLib.sol";
@@ -9,7 +8,7 @@ import "./interfaces/TotoSlotStructLib.sol";
 // Creating a contract 
 contract TotoSlots {    
 
-    // Declaring state variables of type array      
+    // Declaring state variables of a type of fixed-size array 
     address public owner;  
     uint[6][] private arr_data;        
     uint256[] private arr_test;    
@@ -60,7 +59,7 @@ contract TotoSlots {
         newSlotData.slotsData = _slotsData;
 
         // Create a request instance
-        slotAccounts.push(_address);
+        slotAccounts.push(_address);        
     }
 
     function getslotAccountsAddress() view public returns(address) {         
@@ -74,7 +73,7 @@ contract TotoSlots {
         address _issuerAddress = totoSlots[_address].issuerAddress;
         string memory _issuerEmail = totoSlots[_address].issuerEmail;
         uint[6][] memory _slotsData = totoSlots[_address].slotsData;
-        
+             
         return (_issuerAddress, _issuerEmail, _slotsData);
     }
 
