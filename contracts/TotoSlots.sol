@@ -20,8 +20,7 @@ contract TotoSlots {
 
     // Save all the Slot‘s addresses who registered on a contract in an array.
     address[] public slotAccounts;    
-    // TotoSlotStructLib.TotoSlotsData[] public slotAccounts;        
-
+    
     modifier onlyOwner {
         require(msg.sender == owner, "only Owner can invoke the function");
         _;
@@ -35,9 +34,18 @@ contract TotoSlots {
         require(issuerMap[msg.sender].issuerAddress == issuerAddress , "not Authorized to Invoke the function");
         _;
     }
+
+    // function doesIssuerExist(address _issuerAddress) public view returns(bool){
+    //     require(TotoSlotStructLib.isAValidAddress(_issuerAddress), "issuerAddress is Invalid");
+    //     return issuerMap[_issuerAddress].createdAt > 0;
+    // }
+    
     
     // Function adding values to the mapping
-    function setTotoSlotsData(address _address, string memory _issuerUID, string memory _issuerName, string memory _issuerEmail, uint[6][] memory _slotsData) public {  
+    function setTotoSlotsData(address _address, string memory _issuerUID, string memory _issuerName, string memory _issuerEmail, uint[6][] memory _slotsData) public {          
+        // require(!doesIssuerExist(_address), "A TotoSlotsIssuer is already created with this issuerId" );
+        // require(TotoSlotStructLib.isANonEmptyString(_issuerName), "invalid issuerName");
+
         totoSlots[_address] = TotoSlotStructLib.TotoSlotsData(
             {
                 issuerAddress: _address,
@@ -55,6 +63,8 @@ contract TotoSlots {
 
     // Function to get all data of dynamic array 
     function getTotoSlotsData(address _inputAddress) view public returns (address, string memory, string memory, string memory, uint[6][] memory, uint256) { 
+        // require(doesIssuerExist(_inputAddress), "TotoSlotsIssuer doesnot exist with this issuerAddress");
+
         address _address = totoSlots[_inputAddress].issuerAddress;
         string memory _uid = totoSlots[_inputAddress].issuerUID;
         string memory _name = totoSlots[_inputAddress].issuerName;
@@ -118,7 +128,7 @@ contract TotoSlots {
         return(arr_data[index]);
     }   
      
-    // Current block timestamp is returned by now (http://www.unixtimestamp.com/)
+    // Current block timestamp is returned by now ( http://www.unixtimestamp.com/ ex, $ date -d @block.timestamp )
     function time_Call() view public returns (uint256) {        
         return block.timestamp;
     }
