@@ -8,12 +8,12 @@ import "./interfaces/TotoSlotStructLib.sol";
 contract TotoSlots {    
 
     // Declaring state variables of a type of fixed-size array 
-    address public owner;  
+    address private owner;  
     uint[6][] private arr_data;        
     uint256[] private arr_test;    
     
     // Storage variables for Issuers(issuerAddress -> Issuer)
-    mapping(address => TotoSlotStructLib.Issuer) public issuerMap;
+    mapping(address => TotoSlotStructLib.Issuer) issuerMap;
 
     // Creating mapping    
     mapping(address => TotoSlotStructLib.TotoSlotsData) totoSlots;       
@@ -37,42 +37,43 @@ contract TotoSlots {
     }
     
     // Function adding values to the mapping
-    function setTotoSlotsData(address _address, string memory _issuerEmail, uint[6][] memory _slotsData) public {        
-        // TotoSlotStructLib.TotoSlotsData memory newSlotData = TotoSlotStructLib.TotoSlotsData({
-        //     issuerAddress: _address,
-        //     issuerEmail: _issuerEmail,
-        //     slotsData: _slotsData           
-        // });
- 
-        // // Create a request instance
-        // slotAccounts.push(newSlotData);    
-
-        TotoSlotStructLib.TotoSlotsData memory newSlotData = totoSlots[_address];        
-        newSlotData.issuerAddress = _address;
-        newSlotData.issuerEmail = _issuerEmail;
-        newSlotData.slotsData = _slotsData;
+    function setTotoSlotsData(address _address, string memory _issuerUID, string memory _issuerName, string memory _issuerEmail, uint[6][] memory _slotsData) public {  
+        totoSlots[_address] = TotoSlotStructLib.TotoSlotsData(
+            {
+                issuerAddress: _address,
+                issuerUID: _issuerUID,
+                issuerName: _issuerName,
+                issuerEmail: _issuerEmail,
+                slotsData: _slotsData,
+                createdAt : block.timestamp
+            }
+        );
         
         // Create a request instance        
-        slotAccounts.push(_address) -1;              
-    }
-
-    function getSlotAccounts() view public returns (address[] memory) {
-        return slotAccounts;
+        slotAccounts.push(_address);       
     }
 
     // Function to get all data of dynamic array 
-    function getTotoSlotsData(address _address) view public returns (address, string memory, uint[6][] memory) { 
-        address _issuerAddress = totoSlots[_address].issuerAddress;
-        string memory _issuerEmail = totoSlots[_address].issuerEmail;
-        uint[6][] memory _slotsData = totoSlots[_address].slotsData;
-             
-        return (_issuerAddress, _issuerEmail, _slotsData);
+    function getTotoSlotsData(address _inputAddress) view public returns (address, string memory, string memory, string memory, uint[6][] memory, uint256) { 
+        address _address = totoSlots[_inputAddress].issuerAddress;
+        string memory _uid = totoSlots[_inputAddress].issuerUID;
+        string memory _name = totoSlots[_inputAddress].issuerName;
+        string memory _email = totoSlots[_inputAddress].issuerEmail;
+        uint[6][] memory _slotsData = totoSlots[_inputAddress].slotsData;
+        uint256 _createdAt = totoSlots[_inputAddress].createdAt;
+
+        return (_address, _uid, _name, _email, _slotsData, _createdAt);
     }    
 
-    // Counting from a Mapping
+    // Counting dynamic array from a Mapping
     function countSlotAccounts() view public returns (uint) {
         return slotAccounts.length;
     }
+
+    // Function to get all stored addresses of dynamic array 
+    function getSlotAccounts() view public returns (address[] memory) {
+        return slotAccounts;
+    }    
 
     // Function to add data in dynamic array test
     function addData(uint256 num) public {        
@@ -102,28 +103,28 @@ contract TotoSlots {
     }          
 
     // Function to get all data of dynamic array 
-    function array_popAllData() view public returns(uint[6][] memory) {    
+    function array_popAllData() view public returns (uint[6][] memory) {    
         return arr_data;
     }
 
     // Defining a function to find the length of the array
-    function array_getLength() view public returns(uint256) {  
+    function array_getLength() view public returns (uint256) {  
         uint x = arr_data.length;
         return x; 
     }  
 
     // Return an array stored in the dynamic dimension will throw if index > flags.length-1 (index starts at 0)
-    function array_getArray(uint256 index) view public returns(uint[6] memory) {
+    function array_getArray(uint256 index) view public returns (uint[6] memory) {
         return(arr_data[index]);
     }   
      
     // Current block timestamp is returned by now (http://www.unixtimestamp.com/)
-    function time_Call() view public returns(uint256) {        
+    function time_Call() view public returns (uint256) {        
         return block.timestamp;
     }
 
     // Block Number is returned using block.number
-    function block_Call() view public returns(uint256) {
+    function block_Call() view public returns (uint256) {
         return block.number; 
     }
     
