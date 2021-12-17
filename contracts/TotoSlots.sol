@@ -35,16 +35,16 @@ contract TotoSlots {
         _;
     }
 
-    // function doesIssuerExist(address _issuerAddress) public view returns(bool){
-    //     require(TotoSlotStructLib.isAValidAddress(_issuerAddress), "issuerAddress is Invalid");
-    //     return issuerMap[_issuerAddress].createdAt > 0;
-    // }
+    function doesIssuerExist(address _issuerAddress) public view returns(bool){
+        require(TotoSlotStructLib.isAValidAddress(_issuerAddress), "issuerAddress is Invalid");
+        return issuerMap[_issuerAddress].createdAt > 0;
+    }
     
     
     // Function adding values to the mapping
     function setTotoSlotsData(address _address, string memory _issuerUID, string memory _issuerName, string memory _issuerEmail, uint[6][] memory _slotsData) public {          
-        // require(!doesIssuerExist(_address), "A TotoSlotsIssuer is already created with this issuerId" );
-        // require(TotoSlotStructLib.isANonEmptyString(_issuerName), "invalid issuerName");
+        require(!doesIssuerExist(_address), "A TotoSlotsIssuer is already created with this issuerId" );
+        require(TotoSlotStructLib.isANonEmptyString(_issuerName), "invalid issuerName");
 
         totoSlots[_address] = TotoSlotStructLib.TotoSlotsData(
             {
@@ -63,7 +63,7 @@ contract TotoSlots {
 
     // Function to get all data of dynamic array 
     function getTotoSlotsData(address _inputAddress) view public returns (address, string memory, string memory, string memory, uint[6][] memory, uint256) { 
-        // require(doesIssuerExist(_inputAddress), "TotoSlotsIssuer doesnot exist with this issuerAddress");
+        require(doesIssuerExist(_inputAddress), "TotoSlotsIssuer doesnot exist with this issuerAddress");
 
         address _address = totoSlots[_inputAddress].issuerAddress;
         string memory _uid = totoSlots[_inputAddress].issuerUID;
