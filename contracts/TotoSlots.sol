@@ -12,10 +12,7 @@ contract TotoSlots {
     uint[6][] private arr_data;        
     uint256[] private arr_test;    
     
-    // Storage variables for Issuers(issuerAddress -> Issuer)
-    mapping(address => TotoSlotStructLib.Issuer) issuerMap;
-
-    // Creating mapping    
+    // Creating mapping a storage variables for TotoSlots(issuerAddress -> TotoSlotsData)
     mapping(address => TotoSlotStructLib.TotoSlotsData) totoSlots;       
 
     // Save all the Slot‘s addresses who registered on a contract in an array.
@@ -30,22 +27,14 @@ contract TotoSlots {
         return owner;
     }
 
-    modifier isIssuerAuthorised(address issuerAddress){
-        require(issuerMap[msg.sender].issuerAddress == issuerAddress , "not Authorized to Invoke the function");
+    modifier isIssuerAuthorised(address issuerAddress){        
+        require(totoSlots[msg.sender].issuerAddress == issuerAddress , "not Authorized to Invoke the function");
         _;
     }
-
-    function doesIssuerExist(address _issuerAddress) public view returns(bool){
-        require(TotoSlotStructLib.isAValidAddress(_issuerAddress), "issuerAddress is Invalid");
-        return issuerMap[_issuerAddress].createdAt > 0;
-    }
-    
     
     // Function adding values to the mapping
     function setTotoSlotsData(address _address, string memory _issuerUID, string memory _issuerName, string memory _issuerEmail, uint[6][] memory _slotsData) public {          
-        require(!doesIssuerExist(_address), "A TotoSlotsIssuer is already created with this issuerId" );
-        require(TotoSlotStructLib.isANonEmptyString(_issuerName), "invalid issuerName");
-
+     
         totoSlots[_address] = TotoSlotStructLib.TotoSlotsData(
             {
                 issuerAddress: _address,
@@ -63,8 +52,7 @@ contract TotoSlots {
 
     // Function to get all data of dynamic array 
     function getTotoSlotsData(address _inputAddress) view public returns (address, string memory, string memory, string memory, uint[6][] memory, uint256) { 
-        require(doesIssuerExist(_inputAddress), "TotoSlotsIssuer doesnot exist with this issuerAddress");
-
+     
         address _address = totoSlots[_inputAddress].issuerAddress;
         string memory _uid = totoSlots[_inputAddress].issuerUID;
         string memory _name = totoSlots[_inputAddress].issuerName;
@@ -91,7 +79,7 @@ contract TotoSlots {
     }
 
     // Function to search an element in dynamic array
-    function search(uint256 num) view public returns(bool) {
+    function search(uint256 num) view public returns (bool) {
         uint i;        
         for(i=0; i<arr_test.length; i++) {
             if(arr_test[i] == num) {

@@ -18,12 +18,8 @@
  *
  */
 
-const Web3 = require('web3');
-const web3 = new Web3();
 const { projectId, mnemonic } = require('./secrets.json');  
 const HDWalletProvider = require('@truffle/hdwallet-provider');
-const NonceTrackerSubprovider = require('web3-provider-engine/subproviders/nonce-tracker');
-
 
 // const fs = require('fs');
 // const MNEMONIC = fs.readFileSync(".secret").toString().trim();

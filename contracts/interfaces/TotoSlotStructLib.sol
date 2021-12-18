@@ -2,11 +2,6 @@
 pragma solidity >0.5.0;
 
 library TotoSlotStructLib {
-
-    struct Issuer {        
-        address issuerAddress;        
-        uint256 createdAt;        
-    }
     
     // Defining our TotoSlotData struct
     struct TotoSlotsData {        
