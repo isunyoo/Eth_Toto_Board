@@ -33,7 +33,7 @@ contract TotoSlots {
     }
     
     // Function adding values to the mapping
-    function setTotoSlotsData(address _address, string memory _issuerUID, string memory _issuerName, string memory _issuerEmail, uint[6][] memory _slotsData) public {          
+    function setTotoSlotsData(address _address, string memory _issuerUID, string memory _issuerName, string memory _issuerEmail, uint[6][] memory _slotsData, string memory _issuerTime) public {    
      
         totoSlots[_address] = TotoSlotStructLib.TotoSlotsData(
             {
@@ -42,7 +42,8 @@ contract TotoSlots {
                 issuerName: _issuerName,
                 issuerEmail: _issuerEmail,
                 slotsData: _slotsData,
-                createdAt : block.timestamp
+                createdTime: _issuerTime,
+                createdBlockTime : block.timestamp
             }
         );
         
@@ -51,16 +52,16 @@ contract TotoSlots {
     }
 
     // Function to get all data of dynamic array 
-    function getTotoSlotsData(address _inputAddress) view public returns (address, string memory, string memory, string memory, uint[6][] memory, uint256) { 
+    function getTotoSlotsData(address _inputAddress) view public returns (address, string memory, string memory, string memory, uint[6][] memory, string memory) { 
      
         address _address = totoSlots[_inputAddress].issuerAddress;
         string memory _uid = totoSlots[_inputAddress].issuerUID;
         string memory _name = totoSlots[_inputAddress].issuerName;
         string memory _email = totoSlots[_inputAddress].issuerEmail;
         uint[6][] memory _slotsData = totoSlots[_inputAddress].slotsData;
-        uint256 _createdAt = totoSlots[_inputAddress].createdAt;
+        string memory _createdTime = totoSlots[_inputAddress].createdTime;        
 
-        return (_address, _uid, _name, _email, _slotsData, _createdAt);
+        return (_address, _uid, _name, _email, _slotsData, _createdTime);
     }    
 
     // Counting dynamic array from a Mapping

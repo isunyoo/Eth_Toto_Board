@@ -11,7 +11,8 @@ library TotoSlotStructLib {
         string issuerName;
         string issuerEmail;        
         uint[6][] slotsData;        
-        uint256 createdAt;
+        string createdTime;   
+        uint256 createdBlockTime;        
     }
 
     function isANonEmptyString(string memory stringArgument) public pure returns(bool){
