@@ -2,6 +2,7 @@
 // https://jeancvllr.medium.com/solidity-tutorial-all-about-structs-b3e7ca398b1e
 // SPDX-License-Identifier: MIT
 pragma solidity >0.5.0;
+pragma experimental ABIEncoderV2;
 import "./interfaces/TotoSlotStructLib.sol";
   
 // Creating a contract 
@@ -16,7 +17,7 @@ contract TotoSlots {
     mapping(address => TotoSlotStructLib.TotoSlotsData) totoSlots;       
 
     // Save all the Slot‘s addresses who registered on a contract in an array.
-    address[] public slotAccounts;    
+    address[] public slotAccounts;            
     
     modifier onlyOwner {
         require(msg.sender == owner, "only Owner can invoke the function");
@@ -48,32 +49,65 @@ contract TotoSlots {
         );
         
         // Create a request instance        
-        slotAccounts.push(_address);       
-    }
-
-    // Function to get all data of dynamic array 
-    function getTotoSlotsData(address _inputAddress) view public returns (address, string memory, string memory, string memory, uint[6][] memory, string memory) { 
-     
-        address _address = totoSlots[_inputAddress].issuerAddress;
-        string memory _uid = totoSlots[_inputAddress].issuerUID;
-        string memory _name = totoSlots[_inputAddress].issuerName;
-        string memory _email = totoSlots[_inputAddress].issuerEmail;
-        uint[6][] memory _slotsData = totoSlots[_inputAddress].slotsData;
-        string memory _createdTime = totoSlots[_inputAddress].createdTime;        
-
-        return (_address, _uid, _name, _email, _slotsData, _createdTime);
+        slotAccounts.push(_address);                       
     }    
 
-    // Counting dynamic array from a Mapping
-    function countSlotAccounts() view public returns (uint) {
+    // Function to return array of structure TotoSlotsData
+    function getTotoSlotsData(address _inputAddress) public view returns (address, string memory, string memory, string memory, uint[6][] memory, string memory, uint256) { 
+        
+        // Copy the data into memory
+        TotoSlotStructLib.TotoSlotsData memory slotsData = totoSlots[_inputAddress];
+               
+        // Break the struct's members out into a tuple in the same order that they appear in the struct
+        return (slotsData.issuerAddress, slotsData.issuerUID, slotsData.issuerName, slotsData.issuerEmail, slotsData.slotsData, slotsData.createdTime, slotsData.createdBlockTime); 
+    }
+
+    function getAllTotoSlotsData(address _inputAddress) public view returns (TotoSlotStructLib.TotoSlotsData[] memory) { 
+
+        uint count=0;      
+        for(uint i=0; i<slotAccounts.length; i++) {
+            if(slotAccounts[i] == _inputAddress) {
+                count++;
+            }
+        }      
+        
+        TotoSlotStructLib.TotoSlotsData[] memory totoSlotsData = new TotoSlotStructLib.TotoSlotsData[](count); 
+
+        // Copy the data into memory
+        TotoSlotStructLib.TotoSlotsData memory slotsData = totoSlots[_inputAddress];
+
+        for(uint i=0; i<slotAccounts.length; i++) {
+            if(slotAccounts[i] == _inputAddress) {
+                totoSlotsData[i] = slotsData;                        
+            }
+        }       
+        // Return Array of structure
+        return totoSlotsData;
+        // https://stackoverflow.com/questions/48877910/how-can-i-return-an-array-of-struct-in-solidity
+        // https://ethereum.stackexchange.com/questions/3589/how-can-i-return-an-array-of-struct-from-a-function/97517
+    }
+
+    // Counting all dynamic array from a Mapping
+    function countAllSlotAccounts() view public returns (uint) {
         return slotAccounts.length;
     }
 
+    // Counting specific dynamic array from a Mapping
+    function countSlotAccount(address _address) view public returns (uint) {        
+        uint count=0;      
+        for(uint i=0; i<slotAccounts.length; i++) {
+            if(slotAccounts[i] == _address) {
+                count++;
+            }
+        }           
+        return count;
+    }
+
     // Function to get all stored addresses of dynamic array 
-    function getSlotAccounts() view public returns (address[] memory) {
+    function getAllSlotAccounts() view public returns (address[] memory) {
         return slotAccounts;
     }    
-
+    
     // Function to add data in dynamic array test
     function addData(uint256 num) public {        
         arr_test.push(num);
