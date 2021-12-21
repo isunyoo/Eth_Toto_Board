@@ -115,14 +115,17 @@ contract TotoSlots {
 
     // Function to search an element in dynamic array
     function search(uint256 num) view public returns (bool) {
+        bool searchStatus;
         uint i;        
         for(i=0; i<arr_test.length; i++) {
             if(arr_test[i] == num) {
-                return true;
+                searchStatus = true;
+                return searchStatus;
             }
         }        
         if(i >= arr_test.length)
-        return false;
+        searchStatus = false;
+        return searchStatus;
     } 
 
     // Function to store all data in dynamic array 
