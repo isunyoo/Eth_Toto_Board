@@ -15,7 +15,7 @@ contract TotoSlots {
     
     // Creating mapping a storage variables for TotoSlots(issuerAddress -> TotoSlotsData)
     mapping(address => TotoSlotStructLib.TotoSlotsData) totoSlots;       
-    TotoSlotStructLib.TotoSlotsData[] TotoSlotsDataArray;
+    TotoSlotStructLib.TotoSlotsData[] TotoSlotsDataArray;    
     // mapping(address => TotoSlotStructLib.TotoSlotsData[]) TotoSlotsDataArray;
 
     // Save all the Slot‘s addresses who registered on a contract in an array.
@@ -64,6 +64,31 @@ contract TotoSlots {
         return (slotsData.issuerAddress, slotsData.issuerUID, slotsData.issuerName, slotsData.issuerEmail, slotsData.slotsData, slotsData.createdTime, slotsData.createdBlockTime); 
     }
 
+    // function getAllTotoSlotsData(address _inputAddress) public view returns (TotoSlotStructLib.TotoSlotsData[] memory) { 
+
+    //     uint count=0;      
+    //     for(uint i=0; i<slotAccounts.length; i++) {
+    //         if(slotAccounts[i] == _inputAddress) {
+    //             count++;
+    //         }
+    //     }      
+        
+    //     TotoSlotStructLib.TotoSlotsData[] memory totoSlotsData = new TotoSlotStructLib.TotoSlotsData[](count); 
+
+    //     // Copy the data into memory
+    //     TotoSlotStructLib.TotoSlotsData memory slotsData = totoSlots[_inputAddress];
+
+    //     for(uint i=0; i<slotAccounts.length; i++) {
+    //         if(slotAccounts[i] == _inputAddress) {
+    //             totoSlotsData[i] = slotsData;                        
+    //         }
+    //     }       
+    //     // Return Array of structure
+    //     return totoSlotsData;
+    //     // https://stackoverflow.com/questions/48877910/how-can-i-return-an-array-of-struct-in-solidity
+    //     // https://ethereum.stackexchange.com/questions/3589/how-can-i-return-an-array-of-struct-from-a-function/97517
+    // }     
+
     function getAllTotoSlotsData(address _inputAddress) public view returns (TotoSlotStructLib.TotoSlotsData[] memory) { 
 
         uint count=0;      
@@ -75,42 +100,36 @@ contract TotoSlots {
         
         TotoSlotStructLib.TotoSlotsData[] memory totoSlotsData = new TotoSlotStructLib.TotoSlotsData[](count); 
 
-        // Copy the data into memory
-        TotoSlotStructLib.TotoSlotsData memory slotsData = totoSlots[_inputAddress];
-
-        for(uint i=0; i<slotAccounts.length; i++) {
-            if(slotAccounts[i] == _inputAddress) {
-                totoSlotsData[i] = slotsData;                        
-            }
+        for(uint i=0; i<count; i++) {            
+            TotoSlotStructLib.TotoSlotsData storage storageData = totoSlots[_inputAddress];
+            totoSlotsData[i] = storageData;            
         }       
         // Return Array of structure
-        return totoSlotsData;
-        // https://stackoverflow.com/questions/48877910/how-can-i-return-an-array-of-struct-in-solidity
-        // https://ethereum.stackexchange.com/questions/3589/how-can-i-return-an-array-of-struct-from-a-function/97517
+        return totoSlotsData;        
     }
 
-    function getSlotsData(uint[] memory indexes) public view returns (address[] memory, string[] memory, string[] memory, string[] memory, uint[6][][] memory, string[] memory, uint256[] memory) {
-        address[] memory issuerAddress = new address[](indexes.length);
-        string[] memory issuerUID = new string[](indexes.length);
-        string[] memory issuerName = new string[](indexes.length);
-        string[] memory issuerEmail = new string[](indexes.length);
-        uint[6][][] memory slotsData = new uint[6][][](indexes.length);
-        string[] memory createdTime = new string[](indexes.length);
-        uint256[] memory createdBlockTime = new uint256[](indexes.length);         
+    // function getSlotsData(uint[] memory indexes) public view returns (address[] memory, string[] memory, string[] memory, string[] memory, uint[6][][] memory, string[] memory, uint256[] memory) {
+    //     address[] memory issuerAddress = new address[](indexes.length);
+    //     string[] memory issuerUID = new string[](indexes.length);
+    //     string[] memory issuerName = new string[](indexes.length);
+    //     string[] memory issuerEmail = new string[](indexes.length);
+    //     uint[6][][] memory slotsData = new uint[6][][](indexes.length);
+    //     string[] memory createdTime = new string[](indexes.length);
+    //     uint256[] memory createdBlockTime = new uint256[](indexes.length);         
 
-        for (uint i = 0; i < indexes.length; i++) {
-            TotoSlotStructLib.TotoSlotsData storage data = TotoSlotsDataArray[indexes[i]];
-            issuerAddress[i] = data.issuerAddress;
-            issuerUID[i] = data.issuerUID;
-            issuerName[i] = data.issuerName;
-            issuerEmail[i] = data.issuerEmail;
-            slotsData[i] = data.slotsData;
-            createdTime[i] = data.createdTime;
-            createdBlockTime[i] = data.createdBlockTime;            
-        }
+    //     for (uint i=0; i<indexes.length; i++) {
+    //         TotoSlotStructLib.TotoSlotsData storage data = TotoSlotsDataArray[indexes[i]];
+    //         issuerAddress[i] = data.issuerAddress;
+    //         issuerUID[i] = data.issuerUID;
+    //         issuerName[i] = data.issuerName;
+    //         issuerEmail[i] = data.issuerEmail;
+    //         slotsData[i] = data.slotsData;
+    //         createdTime[i] = data.createdTime;
+    //         createdBlockTime[i] = data.createdBlockTime;            
+    //     }
 
-        return (issuerAddress, issuerUID, issuerName, issuerEmail, slotsData, createdTime, createdBlockTime);         
-    }
+    //     return (issuerAddress, issuerUID, issuerName, issuerEmail, slotsData, createdTime, createdBlockTime);         
+    // }
 
     // Counting all dynamic array from a Mapping
     function countAllSlotAccounts() view public returns (uint) {
