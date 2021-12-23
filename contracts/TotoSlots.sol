@@ -89,7 +89,7 @@ contract TotoSlots {
     //     return totoSlotsData;
     //     // https://stackoverflow.com/questions/48877910/how-can-i-return-an-array-of-struct-in-solidity
     //     // https://ethereum.stackexchange.com/questions/3589/how-can-i-return-an-array-of-struct-from-a-function/97517
-    // https://ethereum.stackexchange.com/questions/11870/create-a-two-dimensional-array-in-solidityhttps://ethereum.stackexchange.com/questions/11870/create-a-two-dimensional-array-in-solidity
+    // https://ethereum.stackexchange.com/questions/11870/create-a-two-dimensional-array-in-solidity
     // }     
 
     function getAllTotoSlotsData(address _inputAddress) public view returns (TotoSlotStructLib.TotoSlotsData[] memory) { 
