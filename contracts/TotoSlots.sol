@@ -19,7 +19,8 @@ contract TotoSlots {
     // mapping(address => TotoSlotStructLib.TotoSlotsData[]) TotoSlotsDataArray;
 
     // Save all the Slot‘s addresses who registered on a contract in an array.
-    address[] public slotAccounts;                
+    // address[] public slotAccounts;
+    address[1][] public slotAccounts;
     
     modifier onlyOwner {
         require(msg.sender == owner, "only Owner can invoke the function");
@@ -51,7 +52,8 @@ contract TotoSlots {
         );
         
         // Create a request instance        
-        slotAccounts.push(_address);                       
+        // slotAccounts.push(_address);              
+        slotAccounts.push([_address]);                           
     }    
 
     // Function to return array of structure TotoSlotsData
@@ -87,6 +89,7 @@ contract TotoSlots {
     //     return totoSlotsData;
     //     // https://stackoverflow.com/questions/48877910/how-can-i-return-an-array-of-struct-in-solidity
     //     // https://ethereum.stackexchange.com/questions/3589/how-can-i-return-an-array-of-struct-from-a-function/97517
+    // https://ethereum.stackexchange.com/questions/11870/create-a-two-dimensional-array-in-solidityhttps://ethereum.stackexchange.com/questions/11870/create-a-two-dimensional-array-in-solidity
     // }     
 
     function getAllTotoSlotsData(address _inputAddress) public view returns (TotoSlotStructLib.TotoSlotsData[] memory) { 

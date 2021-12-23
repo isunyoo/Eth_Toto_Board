@@ -1434,12 +1434,13 @@
     "4447": {
       "events": {},
       "links": {},
-      "address": "0x0187e2dbbF334478772eC4e6E426d3923a3717A7",
-      "transactionHash": "0x7e0c64ba3f2ede7a6e6da785d6cfd0a1608c71e20d4f619dc537328aaeca8024"
+      "address": "0xb252E023CdD7D927eD31Ed7FFdA10dC3BcD5eF8C",
+      "transactionHash": "0xc7ad7c5584849586d73e22956835824cb0498782077510191c1aeb507c355395"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-12-22T12:46:40.502Z",
+  "updatedAt": "2021-12-22T13:43:56.615Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {}
   },

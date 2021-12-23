@@ -11374,12 +11374,13 @@
     "4447": {
       "events": {},
       "links": {},
-      "address": "0xa0aC04f2560DF01C67b292C6bA08D36EF976f996",
-      "transactionHash": "0x9303113986a92686dc4255492494861279159b1fe16115deea24c897d8615b23"
+      "address": "0xb5cF51FCe3499BD1dB8d57F90345A8B8efFE4f1F",
+      "transactionHash": "0x0d7e2933349e7f17df65a7c3102563c62c3564348fb6ff4ef3b6b4e68dc77104"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-12-22T12:46:40.510Z",
+  "updatedAt": "2021-12-22T13:43:56.608Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {}
   },
