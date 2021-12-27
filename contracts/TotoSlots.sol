@@ -2,7 +2,6 @@
 // https://jeancvllr.medium.com/solidity-tutorial-all-about-structs-b3e7ca398b1e
 // SPDX-License-Identifier: MIT
 pragma solidity >0.5.0;
-pragma experimental ABIEncoderV2;
 import "./interfaces/TotoSlotStructLib.sol";
   
 // Creating a contract 
@@ -15,12 +14,13 @@ contract TotoSlots {
     
     // Creating mapping a storage variables for TotoSlots(issuerAddress -> TotoSlotsData)
     mapping(address => TotoSlotStructLib.TotoSlotsData) totoSlots;       
-    TotoSlotStructLib.TotoSlotsData[] TotoSlotsDataArray;    
+    // TotoSlotStructLib.TotoSlotsData[] TotoSlotsDataArray;    
     // mapping(address => TotoSlotStructLib.TotoSlotsData[]) TotoSlotsDataArray;
 
     // Save all the Slot‘s addresses who registered on a contract in an array.
-    // address[] public slotAccounts;
-    address[1][] public slotAccounts;
+    address[] public slotAccounts;    
+
+    event saveTotoSlotsData(address indexed _from);
     
     modifier onlyOwner {
         require(msg.sender == owner, "only Owner can invoke the function");
@@ -50,10 +50,11 @@ contract TotoSlots {
                 createdBlockTime : block.timestamp
             }
         );
+
+        emit saveTotoSlotsData(msg.sender);
         
         // Create a request instance        
-        // slotAccounts.push(_address);              
-        slotAccounts.push([_address]);                           
+        slotAccounts.push(_address);                                           
     }    
 
     // Function to return array of structure TotoSlotsData
@@ -86,30 +87,8 @@ contract TotoSlots {
     //         }
     //     }       
     //     // Return Array of structure
-    //     return totoSlotsData;
-    //     // https://stackoverflow.com/questions/48877910/how-can-i-return-an-array-of-struct-in-solidity
-    //     // https://ethereum.stackexchange.com/questions/3589/how-can-i-return-an-array-of-struct-from-a-function/97517
-    // https://ethereum.stackexchange.com/questions/11870/create-a-two-dimensional-array-in-solidity
-    // }     
-
-    function getAllTotoSlotsData(address _inputAddress) public view returns (TotoSlotStructLib.TotoSlotsData[] memory) { 
-
-        uint count=0;      
-        for(uint i=0; i<slotAccounts.length; i++) {
-            if(slotAccounts[i] == _inputAddress) {
-                count++;
-            }
-        }      
-        
-        TotoSlotStructLib.TotoSlotsData[] memory totoSlotsData = new TotoSlotStructLib.TotoSlotsData[](count); 
-
-        for(uint i=0; i<count; i++) {            
-            TotoSlotStructLib.TotoSlotsData storage storageData = totoSlots[_inputAddress];
-            totoSlotsData[i] = storageData;            
-        }       
-        // Return Array of structure
-        return totoSlotsData;        
-    }
+    //     return totoSlotsData;        
+    // }        
 
     // function getSlotsData(uint[] memory indexes) public view returns (address[] memory, string[] memory, string[] memory, string[] memory, uint[6][][] memory, string[] memory, uint256[] memory) {
     //     address[] memory issuerAddress = new address[](indexes.length);
