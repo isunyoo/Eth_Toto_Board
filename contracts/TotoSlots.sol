@@ -37,16 +37,16 @@ contract TotoSlots {
     }
     
     // Function adding values to the mapping
-    function setTotoSlotsData(address _address, string memory _issuerUID, string memory _issuerName, string memory _issuerEmail, uint[6][] memory _slotsData, string memory _issuerTime) public {    
+    function setTotoSlotsData(address issuerAddress, string memory issuerUID, string memory issuerName, string memory issuerEmail, uint[6][] memory slotsData, string memory issuerTime) public {    
      
-        totoSlots[_address] = TotoSlotStructLib.TotoSlotsData(
+        totoSlots[issuerAddress] = TotoSlotStructLib.TotoSlotsData(
             {
-                issuerAddress: _address,
-                issuerUID: _issuerUID,
-                issuerName: _issuerName,
-                issuerEmail: _issuerEmail,
-                slotsData: _slotsData,
-                createdTime: _issuerTime,
+                issuerAddress: issuerAddress,
+                issuerUID: issuerUID,
+                issuerName: issuerName,
+                issuerEmail: issuerEmail,
+                slotsData: slotsData,
+                createdTime: issuerTime,
                 createdBlockTime : block.timestamp
             }
         );
@@ -54,7 +54,7 @@ contract TotoSlots {
         emit saveTotoSlotsData(msg.sender);
         
         // Create a request instance        
-        slotAccounts.push(_address);                                           
+        slotAccounts.push(issuerAddress);                                           
     }    
 
     // Function to return array of structure TotoSlotsData

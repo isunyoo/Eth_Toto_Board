@@ -13,6 +13,7 @@ $ truffle migrate --reset --compile-all --network development/ropsten
 $ truffle console --network development/ropsten
 truffle(development)> accounts
 truffle(development)> accounts[0] = accounts[1]
+truffle(development)> await web3.eth.getBalance(accounts[1]);
 truffle(development)> networks
 truffle(development)> blockNum = await web3.eth.getBlockNumber()
 truffle(development)> block = await web3.eth.getBlock(blockNum)
