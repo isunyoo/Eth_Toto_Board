@@ -3985,7 +3985,11 @@
   },
   "networks": {},
   "schemaVersion": "3.4.3",
+<<<<<<< HEAD
   "updatedAt": "2022-01-09T18:59:36.612Z",
+=======
+  "updatedAt": "2021-12-27T18:15:43.261Z",
+>>>>>>> e325cdb43012910cac9550bd5cc8db461b5d1bb5
   "devdoc": {
     "methods": {}
   },
